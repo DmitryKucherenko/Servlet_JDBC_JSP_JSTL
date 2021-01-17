@@ -1,26 +1,30 @@
-package model;
+package dao;
 
-import entity.User;
+import model.User;
 import jdbc.JDBCUtils;
 
 import javax.servlet.ServletContext;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBDATA {
-    Connection conn;
-    List<User> users = new ArrayList<>();
-    public DBDATA(ServletContext context){
-        this.conn=(Connection)context.getAttribute("CONNECTION");
+public class UserDAO {
+    Connection connection;
 
+
+    public UserDAO(Connection connection){
+        this.connection =connection;
+    }
+
+    public UserDAO(ServletContext servletContext) {
+        this.connection = (Connection)servletContext.getAttribute("CONNECTION");
     }
 
     public List<User> getAllUsers(){
-        ResultSet rs = JDBCUtils.select(conn,"SELECT * FROM users");
+        List<User> users = new ArrayList<>();
+        ResultSet rs = JDBCUtils.select(connection,"SELECT * FROM users");
         try {
             if (rs!=null)
             while (rs.next()) {
@@ -33,20 +37,21 @@ public class DBDATA {
     }
 
     public void deleteUser(String id){
-        JDBCUtils.executeSql(conn,"DELETE FROM users WHERE id="+id);
+        JDBCUtils.executeSql(connection,"DELETE FROM users WHERE id="+id);
     }
+
     public void updateUser(String id, String last_name, String first_name, String age){
         String query = String.format("UPDATE users  set first_name='%s', last_name='%s', age=%s WHERE id=%s",first_name,last_name,age,id);
-        JDBCUtils.executeSql(conn,query);
+        JDBCUtils.executeSql(connection,query);
     }
 
     public void insertUser( String last_name, String first_name, String age){
         String query = String.format("INSERT INTO users VALUES('%s','%s','%s')",first_name,last_name,age);
-        JDBCUtils.executeSql(conn,query);
+        JDBCUtils.executeSql(connection,query);
     }
 
     public User userById(String id){
-        ResultSet rs =  JDBCUtils.select(conn,"SELECT * FROM users WHERE id="+id);
+        ResultSet rs =  JDBCUtils.select(connection,"SELECT * FROM users WHERE id="+id);
         User user = null;
         try {
             rs.next();
@@ -55,7 +60,5 @@ public class DBDATA {
             throwables.printStackTrace();
         }
         return user;
-
     }
-
 }

@@ -1,5 +1,7 @@
 package listener;
 
+import dao.UserDAO;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -42,7 +44,12 @@ public class ApplicationListener implements ServletContextListener {
             throwables.printStackTrace();
         }
 
-        sce.getServletContext().setAttribute("CONNECTION",conn);
+        UserDAO dao = new UserDAO(conn);
+
+
+        sce.getServletContext().setAttribute("DAO",dao);
+
+
 
     }
 

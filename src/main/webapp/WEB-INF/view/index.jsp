@@ -14,14 +14,15 @@
 <table border="1" cellspacing="0" cellpadding="0" width="400px">
     <thead>
     <tr>
-        <td>Name</td>
-        <td>Last name</td>
-        <td>Age</td>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Возраст</td>
         <td>Update</td>
         <td>Delete</td>
     </tr>
     </thead>
     <tbody>
+
 
     <c:forEach var="user" items="${users}">
         <tr>
@@ -45,6 +46,9 @@
     <label><input type="number" name="age"></label>Age<br>
     <input type="submit" value="Ok" name="Ok"><br>
 </form>
+
+
+<a href='<c:url value="/logout" />'>logout</a>
 
 </body>
 </html>

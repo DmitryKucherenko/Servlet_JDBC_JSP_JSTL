@@ -1,26 +1,23 @@
 package controller;
 
-import dao.UserDAO;
-import model.User;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/")
-public class UsersList extends ServletAbstract {
+@WebServlet(name = "ServletLogout",urlPatterns="/logout")
+public class ServletLogout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 
-
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      //  dao = new UserDAO(getServletContext());
-        List<User> users = dao.getAllUsers();
-        request.setAttribute("users",users);
-        getServletContext().getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request,response);
+        HttpSession session = request.getSession();
+        session.removeAttribute("password");
+        session.removeAttribute("login");
+        response.sendRedirect("/");
     }
 }
