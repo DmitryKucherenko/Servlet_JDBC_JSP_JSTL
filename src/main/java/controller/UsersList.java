@@ -18,7 +18,6 @@ public class UsersList extends ServletAbstract {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      //  dao = new UserDAO(getServletContext());
         List<User> users = dao.getAllUsers();
         request.setAttribute("users",users);
         getServletContext().getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request,response);

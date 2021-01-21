@@ -26,8 +26,8 @@
 
     <c:forEach var="user" items="${users}">
         <tr>
-            <td><c:out value="${user.first_name}"/></td>
-            <td><c:out value="${user.last_name}"/></td>
+            <td><c:out value="${user.firstName}"/></td>
+            <td><c:out value="${user.lastName}"/></td>
             <td><c:out value="${user.age}"/></td>
             <td><a href='<c:url value="/update?id=${user.id}" />'>update</a></td>
             <td><a href='<c:url value="/delete?id=${user.id}" />'>delete</a></td>
