@@ -1,5 +1,8 @@
 package filter;
 
+import dao.UserDAO;
+
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -9,20 +12,24 @@ import java.io.IOException;
 
 @WebFilter(filterName = "AuthFilter",urlPatterns="/*")
 public class AuthFilter implements Filter {
+
     public void destroy() {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
          HttpServletRequest req = (HttpServletRequest) request;
          HttpServletResponse res = (HttpServletResponse) response;
+         UserDAO dao = (UserDAO)req.getServletContext().getAttribute("DAO");
          String login = req.getParameter("login");
          String password = req.getParameter("password");
+
 
          HttpSession session = req.getSession();
 
 
-        if(session!=null&&session.getAttribute("login")!=null&&session.getAttribute("password")!=null)
-            chain.doFilter(req, res);
+        if(dao.checkUser((String)session.getAttribute("login"),(String)session.getAttribute("password"))) {
+           chain.doFilter(req, res);
+        }
         else
             if(login!=null&&password!=null){
                 session.setAttribute("password",password);
@@ -38,5 +45,7 @@ public class AuthFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
 
     }
+
+
 
 }

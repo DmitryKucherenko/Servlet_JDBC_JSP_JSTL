@@ -22,11 +22,11 @@ public class UserDAO {
     public List<User> getAllUsers(){
         List<User> users = new ArrayList<>();
         try(Connection connection = dataSource.getConnection()){
-            ResultSet rs = JDBCUtils.select(connection, "SELECT * FROM users");
+            ResultSet rs = JDBCUtils.select(connection, "SELECT  users.id, users.first_name, users.last_name, users.age, pass.login, pass.password FROM users INNER JOIN pass ON users.id=pass.id");
 
             if (rs != null)
                 while (rs.next())
-                    users.add(new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), Integer.parseInt(rs.getString("age"))));
+                    users.add(new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), Integer.parseInt(rs.getString("age")),rs.getString("login"),rs.getString("password")));
 
 
         }catch(SQLException throwables){
@@ -65,12 +65,24 @@ public class UserDAO {
     public User userById(String id){
         User user = null;
         try(Connection connection = dataSource.getConnection()) {
-        ResultSet rs =  JDBCUtils.select(connection,"SELECT * FROM users WHERE id="+id);
+        ResultSet rs =  JDBCUtils.select(connection,"SELECT users.id, users.first_name, users.last_name, users.age, pass.login, pass.password FROM users INNER JOIN pass ON users.id=pass.id WHERE users.id="+id);
             rs.next();
-            user = new User(rs.getInt("id"),rs.getString("first_name"), rs.getString("last_name"), Integer.parseInt(rs.getString("age")));
+            user = new User(rs.getInt("id"),rs.getString("first_name"), rs.getString("last_name"), Integer.parseInt(rs.getString("age")),rs.getString("login"),rs.getString("password"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return user;
     }
+
+
+    public boolean checkUser(String login, String pass){
+        if(login==null || pass == null)return false;
+        for(User user:getAllUsers()){
+           if(user.getLogin().equals(login)&&user.getPassword().equals(pass))
+               return true;
+        }
+        return false;
+    }
+
+
 }
