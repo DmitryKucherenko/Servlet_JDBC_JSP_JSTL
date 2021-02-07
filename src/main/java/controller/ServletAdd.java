@@ -12,8 +12,10 @@ public class ServletAdd extends ServletAbstract {
         String first_name = request.getParameter("first_name");
         String last_name = request.getParameter("last_name");
         String age = request.getParameter("age");
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
 
-        dao.insertUser(last_name,first_name,age);
+        dao.insertUser(last_name,first_name,age,login,password);
         response.sendRedirect("/");
     }
 

@@ -11,12 +11,16 @@
 </head>
 <body>
 <h2>All users</h2>
+
 <table border="1" cellspacing="0" cellpadding="0" width="400px">
     <thead>
     <tr>
+        <td>№</td>
         <td>Имя</td>
         <td>Фамилия</td>
         <td>Возраст</td>
+        <td>Логин</td>
+        <td>Пароль</td>
         <td>Update</td>
         <td>Delete</td>
     </tr>
@@ -24,11 +28,16 @@
     <tbody>
 
 
-    <c:forEach var="user" items="${users}">
+
+
+    <c:forEach var="user" items="${users}" varStatus="сounter" >
         <tr>
+            <td><c:out value="${сounter.count}"/></td>
             <td><c:out value="${user.firstName}"/></td>
             <td><c:out value="${user.lastName}"/></td>
             <td><c:out value="${user.age}"/></td>
+            <td><c:out value="${user.login}"/></td>
+            <td><c:out value="${user.password}"/></td>
             <td><a href='<c:url value="/update?id=${user.id}" />'>update</a></td>
             <td><a href='<c:url value="/delete?id=${user.id}" />'>delete</a></td>
         </tr>
@@ -44,6 +53,8 @@
     <label><input type="text" name="first_name" ></label>Name<br>
     <label><input type="text" name="last_name" ></label>Last Name<br>
     <label><input type="number" name="age"></label>Age<br>
+    <label><input type="text" name="login"></label>Login<br>
+    <label><input type="number" name="password"></label>Password<br>
     <input type="submit" value="Ok" name="Ok"><br>
 </form>
 

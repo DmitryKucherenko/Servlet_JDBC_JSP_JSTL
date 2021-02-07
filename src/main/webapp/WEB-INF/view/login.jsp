@@ -5,8 +5,8 @@
 </head>
 <body>
 <form method="post" action="\">
-    <label><input type="text" name="login" ></label>Name<br>
-    <label><input type="text" name="password" ></label>Last Name<br>
+    <label><input type="text" name="login" ></label>Login<br>
+    <label><input type="text" name="password" ></label>Password<br>
     <input type="submit" value="Ok" name="Ok"><br>
 </form>
 

@@ -7,4 +7,5 @@ public interface DAO<Entity> {
     void insert(Entity e);
     void delete(String id);
     void update(Entity e);
+    void getById(Entity e);
 }

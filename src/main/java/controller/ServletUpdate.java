@@ -17,15 +17,17 @@ public class ServletUpdate extends ServletAbstract {
         String last_name = request.getParameter("last_name");
         String first_name = request.getParameter("first_name");
         String age = request.getParameter("age");
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
 
 
-        dao.updateUser(id, last_name, first_name, age);
+        dao.updateUser(id, last_name, first_name, age,login,password);
         response.sendRedirect("/");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        User user=  dao.userById(id);
+        User user=  dao.getById(id);
         request.setAttribute("user",user);
         getServletContext().getRequestDispatcher("/WEB-INF/view/update.jsp").forward(request,response);
     }
