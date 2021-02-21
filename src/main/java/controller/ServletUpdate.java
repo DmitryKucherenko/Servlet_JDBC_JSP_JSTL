@@ -13,15 +13,15 @@ public class ServletUpdate extends ServletAbstract {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String id = request.getParameter("id");
+        int id = Integer.parseInt(request.getParameter("id"));
         String last_name = request.getParameter("last_name");
         String first_name = request.getParameter("first_name");
-        String age = request.getParameter("age");
+        int age = Integer.parseInt(request.getParameter("age"));
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
 
-        dao.updateUser(id, last_name, first_name, age,login,password);
+        dao.update(new User(id, last_name, first_name, age,login,password));
         response.sendRedirect("/");
     }
 

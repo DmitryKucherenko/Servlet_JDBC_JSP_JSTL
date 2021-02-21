@@ -1,6 +1,5 @@
 package controller;
 
-import dao.UserDAO;
 import model.User;
 
 import javax.servlet.ServletException;
@@ -18,7 +17,8 @@ public class UsersList extends ServletAbstract {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<User> users = dao.getAllUsers();
+        List<User> users = dao.getAll();
+        request.getSession().getAttribute("USER");
         request.setAttribute("users",users);
         getServletContext().getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request,response);
     }

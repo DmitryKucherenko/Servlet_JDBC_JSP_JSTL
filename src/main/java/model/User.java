@@ -8,6 +8,7 @@ public class User {
     private String login;
     private String password;
 
+
     public String getLogin() {
         return login;
     }
@@ -41,11 +42,8 @@ public class User {
         this.password = password;
     }
 
-    public User(String first_name, String last_name, int age) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.age = age;
-        this.id=-1;
+    public User(String first_name, String last_name, int age,String login, String password) {
+        this(0,first_name, last_name,age,login,password);
     }
 
     public String getFirstName() {

@@ -1,5 +1,7 @@
 package controller;
 
+import model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +17,7 @@ public class ServletAdd extends ServletAbstract {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        dao.insertUser(last_name,first_name,age,login,password);
+        dao.insert(new User(last_name,first_name,Integer.parseInt(age),login,password) );
         response.sendRedirect("/");
     }
 

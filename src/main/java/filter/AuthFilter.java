@@ -23,19 +23,18 @@ public class AuthFilter implements Filter {
          String login = req.getParameter("login");
          String password = req.getParameter("password");
 
-
          HttpSession session = req.getSession();
-
-
         if(dao.checkUser((String)session.getAttribute("login"),(String)session.getAttribute("password"))) {
            chain.doFilter(req, res);
         }
         else
             if(login!=null&&password!=null){
+
                 session.setAttribute("password",password);
                 session.setAttribute("login",login);
                 res.sendRedirect("/");
             }else {
+
                 req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);
 
             }

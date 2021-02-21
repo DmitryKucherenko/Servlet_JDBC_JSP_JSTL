@@ -14,7 +14,7 @@ public class ServletDelete extends ServletAbstract {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
            String id = request.getParameter("id");
-           dao.deleteUser(id);
+           dao.delete(id);
            response.sendRedirect("/");
     }
 }
